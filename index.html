@@ -16,35 +16,17 @@
         
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-        <title>chart</title>
+        <title>17110020_17110037</title>
     </head>
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" id="mynavbar">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mynavbar">
             <div class="container">
                 <a class="navbar-brand" href="/">CS613: NLP</a>
-                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="color: white;">
-                    
-                    <span>MENU <i class="fas fa-caret-down"></i></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#Welcome">Welcome <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#About">About Me</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#Contact">Contact Me</a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </nav>
     </header>
     <body>
-        <section id="header">
+        <section id="header" style="padding-top: 10rem;">
             <h1 class="display-4" style="font-family: 'Roboto', sans-serif; font-weight: 900;">Understanding Global Attention Layer in Machine Translation</h1>
             <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ipsa nihil consectetur eveniet? Totam laudantium, possimus quos delectus nemo, maxime tempora quae repudiandae hic iusto obcaecati necessitatibus quibusdam magni dolore.</p>
         </section>
@@ -70,28 +52,37 @@
             <div>
                 <h4>Contents</h4>
                 <h6><a href="#intro">Intoduction</a></h6>
-                <h6><a href="#intro">Types of Attention</a></h6>
+                <h6><a href="#encoder_decoder">RNN Encoder-Decoder</a></h6>
+                <h6><a href="#bahdanau_attention">Bahdanau Attention or the Additive Attention</a></h6>
             </div>
         </section>
 
         <hr>
 
-        <section id="intro">
+        <section id="intro" class="section_heading">
             <div>
                 <h2 class="display-4">Introduction</h2>
                 <hr>
                 <p class="lead">Neural machine translation is one of the most commonly used and one of the best methods used for machine translation. The very recently proposed neural models are the encoder-decoder models. As the name suggests the encoder first encodes a sentence to a vector of some length and then the decoder gives out the corresponding translation for the same. But the problem with these seq2seq models is that there is a bottleneck when we try to convert these sentences to a fixed-length vector making it tedious for the model to keep up with longer sentences.</p>
-                <p class="lead">So we use the Attention Mechanism. Attention directly addresses this issue as it retains and utilizes all the hidden states of the input sequence during the decoding process. Attention in simple terms is another layer you add to your neural architecture which deals with the above problem by weighing the words that carry more meaning to translation. How it does so is by mapping each time step of the decoder output to each of the encoder states.[1][2]</p>
+                <p class="lead">So we use the Attention Mechanism. Attention directly addresses this issue as it retains and utilizes all the hidden states of the input sequence during the decoding process. Attention in simple terms is another layer you add to your neural architecture which deals with the above problem by weighing the words that carry more meaning to translation. How it does so is by mapping each time step of the decoder output to each of the encoder states.<sup>[1][2]</sup></p>
+                <div class="d-flex justify-content-around">
+                    <img src="Attention.png" height="400px" width="550px">
+                </div>
             </div>
         </section>
 
-        <section id="encoder_decoder">
+        
+
+        <section id="encoder_decoder" class="section_heading" >
             <div>
                 <h2 class="display-4">RNN Encoder-Decoder</h2>
                 <hr>
                 <p class="lead">A large variety of problems like machine translation and text summarization where the output dimension is different from the input dimension, that has dependence on the sequence of inputs use an encoder-decoder approach.
                         An encoder is a neural model that reads and encodes a source sentence into a fixed-length vector. A decoder then outputs a translation or summarization from the encoded vector.
                 </p>
+                <div class="d-flex justify-content-around">
+                    <img src="ED4.png" height="250px" width="700px">
+                </div>
                 <p class="lead">
                         In the Encoder–Decoder framework, an encoder reads the input sentence, a sequence of vectors <i>x = (x<sub>1</sub>, . . . , x<sub>T<sub>x</sub></sub> )</i>, into a vector c, called the <b><i>context vector</i></b>.
                 </p>
@@ -122,16 +113,41 @@
                 </p>
             </div>
         </section>
+
+        <section id="bahdanau_attention" class="section_heading" >
+            <div>
+                <h2 class="display-4">Bahdanau Attention or the Additive Attention</h2>
+                <hr>
+                <div class="d-flex justify-content-around">
+                    <img src="Attention1.png" height="600px" width="700px">
+                </div>
+                <p class="lead">
+                    This Attention came from a paper by Dzmitry Bahdanau. The paper had the same aim i.e. to improve the accuracy of Neural Machine translation.
+                </p>
+            </div>
+        </section>
         
 
         <section>
             <div class="d-md-flex justify-content-around">
-                <div id="chart"></div>
-                <div id="chart2"></div>
+                <div class="text-center heatmap_graph">
+                    <p id="ensp"></p>
+                    <div id="chart"></div>
+                </div>
+                <div class="text-center heatmap_graph">
+                    <p id="en2sp2"></p>
+                    <div id="chart2"></div>
+                </div>
             </div>
             <div class="d-md-flex justify-content-around">
-                <div id="chart3"></div>
-                <div id="chart4"></div>
+                <div class="text-center heatmap_graph">
+                    <p id="en3sp3"></p>
+                    <div id="chart3"></div>
+                </div>
+                <div class="text-center heatmap_graph">
+                    <p id="en4sp4"></p>
+                    <div id="chart4"></div>
+                </div>
             </div>
         </section>
 
@@ -239,6 +255,7 @@
 
             chart = document.querySelector("#chart");
             drawChart(example1,example1Ylabels,example1Xlabels,chart);
+            document.getElementById("ensp").innerHTML = "Predicted: " + example1Ylabels.join(' ') + "<br>" + "Original: " + example1Xlabels.join(' ');
 
 
 
@@ -263,6 +280,7 @@
 
             chart2 = document.querySelector("#chart2");
             drawChart(example2,example2Ylabels,example2Xlabels,chart2);
+            document.getElementById("en2sp2").innerHTML = "Predicted: " + example2Ylabels.join(' ') + "<br>" + "Original: " + example2Xlabels.join(' ');
 
             var example3 = [[1.49291791e-02, 9.22864676e-02, 1.54800639e-01, 6.28240824e-01,
         2.22253166e-02, 3.61392647e-02, 4.57631052e-02, 3.81362299e-03],
@@ -286,6 +304,7 @@
             
             chart3 = document.querySelector("#chart3");
             drawChart(example3,example3Ylabels,example3Xlabels,chart3);
+            document.getElementById("en3sp3").innerHTML = "Predicted: " + example3Ylabels.join(' ') + "<br>" + "Original: " + example3Xlabels.join(' ');
 
             var example4 = [[2.07950529e-02, 5.32812774e-01, 7.68576190e-02, 1.82498798e-01,
         1.77884385e-01, 5.06604789e-03],
@@ -309,6 +328,7 @@
             
             chart4 = document.querySelector("#chart4");
             drawChart(example4,example4Ylabels,example4Xlabels,chart4);
+            document.getElementById("en4sp4").innerHTML = "Predicted: " + example4Ylabels.join(' ') + "<br>" + "Original: " + example4Xlabels.join(' ');
 
         </script>
 

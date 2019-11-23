@@ -1,10 +1,11 @@
-html,body{
+body{
     margin-top: 6em;
 }
 section {
     max-width: 700px;
 	width: 90%;
-	margin: 2em auto;
+    margin: 0 auto;
+    padding: 0.5em 0;
 }
 h6 a{
     color: black;
@@ -12,4 +13,11 @@ h6 a{
 h6 a:hover{
     text-decoration: none;
     color: black;
+}
+.section_heading {
+    padding-top: 3em;
+}
+
+.heatmap_graph {
+    padding: 1em;
 }
