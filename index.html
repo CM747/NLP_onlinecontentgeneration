@@ -28,7 +28,7 @@
     <body>
         <section id="header" style="padding-top: 10rem;">
             <h1 class="display-4" style="font-family: 'Roboto', sans-serif; font-weight: 900;">Understanding Global Attention Layer in Machine Translation</h1>
-            <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ipsa nihil consectetur eveniet? Totam laudantium, possimus quos delectus nemo, maxime tempora quae repudiandae hic iusto obcaecati necessitatibus quibusdam magni dolore.</p>
+            <p class="lead">In this article we visualise global attention by Bahdanau et.al. layers and its output.</p>
         </section>
 
         <hr>
@@ -55,6 +55,9 @@
                     <h6><a href="#intro">Intoduction &#8594</a></h6>
                     <h6><a href="#encoder_decoder">RNN Encoder-Decoder &#8594</a></h6>
                     <h6><a href="#bahdanau_attention">Bahdanau Attention or the Additive Attention &#8594</a></h6>
+                    <h6><a href="#implementation">Implementation and Visualization &#8594</a></h6>
+                    <h6><a href="#other_attentions">Other Attentions &#8594</a></h6>
+                    <h6><a href="#refs">References &#8594</a></h6>
                 </div>
             </div>
         </section>
@@ -182,29 +185,87 @@
             </div>
         </section>
         
-
-        <section>
-            <div class="d-md-flex justify-content-around">
-                <div class="text-center heatmap_graph">
-                    <p id="ensp"></p>
-                    <div id="chart"></div>
+        <section id="implementation" class="section_heading">
+            <div>
+                <h2 class="display-4">Implementation and Visualization of Bahdanau Attention</h2>
+                <hr>
+                <h3>Implementation</h3>
+                <p class="lead">Code Link: https://github.com/CM747/NLP_onlinecontentgeneration/blob/master/bahdanau_attention.ipynb</p>
+                <div class="d-flex justify-content-around">
+                    <img src="Code1.png" height="550px" width="700px" class="rounded">
                 </div>
-                <div class="text-center heatmap_graph">
-                    <p id="en2sp2"></p>
-                    <div id="chart2"></div>
+                <br>
+                <br>
+                <h3>Visualization</h3>
+                <div class="d-md-flex justify-content-around">
+                    <div class="text-center heatmap_graph">
+                        <div id="chart"></div>
+                        <p id="ensp"></p>
+                    </div>
+                    <div class="text-center heatmap_graph">
+                        <div id="chart2"></div>
+                        <p id="en2sp2"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="d-md-flex justify-content-around">
-                <div class="text-center heatmap_graph">
-                    <p id="en3sp3"></p>
-                    <div id="chart3"></div>
-                </div>
-                <div class="text-center heatmap_graph">
-                    <p id="en4sp4"></p>
-                    <div id="chart4"></div>
+                <div class="d-md-flex justify-content-around">
+                    <div class="text-center heatmap_graph">
+                        <div id="chart3"></div>
+                        <p id="en3sp3"></p>
+                    </div>
+                    <div class="text-center heatmap_graph">
+                        <div id="chart4"></div>
+                        <p id="en4sp4"></p>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section id="other_attentions" class="section_heading">
+            <div>
+                <h2 class="display-4">Other Classes of Attentions</h2>
+                <hr>
+                <ul>
+                    <li>
+                        <p class="lead">
+                            In the 2015 paper “Show, Attend and Tell: Neural Image Caption Generation with Visual Attention“, Kelvin Xu, et al. used attention mechanism on image data using convolutional neural nets as feature extractors for image data on the problem of captioning photos.They develop two attention mechanisms, one they call “soft attention,” which resembles attention as described by Bahdanau et.al , and the second “hard attention” where the crisp decisions are made about elements in the context vector for each word.<sup>[4]</sup>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            There are examples such as Hierarchical Attention Networks for Document Classification, 2016 and Attention-Based Bidirectional Long Short-Term Memory Networks for Relation Classification, 2016 which don’t use the output of the previous time step into account i.e. the decoder output of the (t-1)th step is not taken into account, this helps the model in alignment.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="refs" class="section_heading">
+            <div>
+                <h2 class="display-4">References</h2>
+                <hr>
+                <p>
+                    [1] Bahdanau, Dzmitry et al. “Neural Machine Translation by Jointly Learning to Align and Translate.” CoRR abs/1409.0473 (2014): n. pag.
+                </p>
+                <p>
+                    [2] https://blog.floydhub.com/attention-mechanism/
+                </p>
+                <p>
+                    [3] https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html 
+                </p>
+                <p>
+                    [4] https://machinelearningmastery.com/how-does-attention-work-in-encoder-decoder-recurrent-neural-networks/
+                </p>
+                <p>
+                    All Gifs are taken from https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3
+                </p>
+                <p>
+                    Code was made using help of Tensorflow tutorial.
+                </p>
+            </div>
+        </section>
+
 
         <script>
             
@@ -310,7 +371,7 @@
 
             chart = document.querySelector("#chart");
             drawChart(example1,example1Ylabels,example1Xlabels,chart);
-            document.getElementById("ensp").innerHTML = "Predicted: " + example1Ylabels.join(' ') + "<br>" + "Original: " + example1Xlabels.join(' ');
+            document.getElementById("ensp").innerHTML = "<b>Predicted</b>: " + example1Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example1Xlabels.join(' ');
 
 
 
@@ -335,7 +396,7 @@
 
             chart2 = document.querySelector("#chart2");
             drawChart(example2,example2Ylabels,example2Xlabels,chart2);
-            document.getElementById("en2sp2").innerHTML = "Predicted: " + example2Ylabels.join(' ') + "<br>" + "Original: " + example2Xlabels.join(' ');
+            document.getElementById("en2sp2").innerHTML = "<b>Predicted</b>: " + example2Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example2Xlabels.join(' ');
 
             var example3 = [[1.49291791e-02, 9.22864676e-02, 1.54800639e-01, 6.28240824e-01,
         2.22253166e-02, 3.61392647e-02, 4.57631052e-02, 3.81362299e-03],
@@ -359,7 +420,7 @@
             
             chart3 = document.querySelector("#chart3");
             drawChart(example3,example3Ylabels,example3Xlabels,chart3);
-            document.getElementById("en3sp3").innerHTML = "Predicted: " + example3Ylabels.join(' ') + "<br>" + "Original: " + example3Xlabels.join(' ');
+            document.getElementById("en3sp3").innerHTML = "<b>Predicted</b>: " + example3Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example3Xlabels.join(' ');
 
             var example4 = [[2.07950529e-02, 5.32812774e-01, 7.68576190e-02, 1.82498798e-01,
         1.77884385e-01, 5.06604789e-03],
@@ -383,7 +444,7 @@
             
             chart4 = document.querySelector("#chart4");
             drawChart(example4,example4Ylabels,example4Xlabels,chart4);
-            document.getElementById("en4sp4").innerHTML = "Predicted: " + example4Ylabels.join(' ') + "<br>" + "Original: " + example4Xlabels.join(' ');
+            document.getElementById("en4sp4").innerHTML = "<b>Predicted</b>: " + example4Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example4Xlabels.join(' ');
 
         </script>
 
