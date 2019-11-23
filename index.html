@@ -126,14 +126,16 @@
                 <p class="lead">
                     This Attention came from a paper by Dzmitry Bahdanau. The paper had the same aim i.e. to improve the accuracy of Neural Machine translation.
                 </p>
+                <br>
+                <h3>Producing Encoder hidden states</h3>
                 <p class="lead">
                     The Input(x) of the model is a 1-of-k coded vector of the sentence as it’s input and the output(y) is the corresponding 1-of-k coded vector of the translated sentence.
                 </p>
                 <div class="d-flex justify-content-around">
-                    <img src="Attention2.png" height="50px" width="300px">
+                    <img src="Attention2.png" height="50px" width="330px">
                 </div>
                 <div class="d-flex justify-content-around">
-                    <img src="Attention3.png" height="50px" width="300px">
+                    <img src="Attention3.png" height="50px" width="330px">
                 </div>
                 <p class="lead">
                     Where K<sub>x</sub> and K<sub>y</sub> are the vocabulary sizes of the respective languages. Tx an Ty are the sizes of the input and the target vector respectively.
@@ -141,24 +143,36 @@
                 <p class="lead">
                     The Encoder RNN gives out the output as described in the previous section but instead of using only the hidden state at the final step, we carry forward all the outputs.
                 </p>
-                <p class="lead">
-                    Now the Attention comes into the Picture. We now start using the decoder outputs as well. At each time step, we’ll first need to calculate the Alignment Score for each encoder output for the decoder output of the previous time step(input for this step). 
-                </p>
-                <p class="lead">
-                    The Alignment score α is defined below:
-                </p>
                 <div class="d-flex justify-content-around">
-                    <img src="Attention4.png" height="160px" width="700px">
+                    <img src="AttentionGif1.gif" height="520px" width="700px">
                 </div>
+                <br>
+                <h3>Calculating Alignment Scores</h3>
+                <p class="lead">
+                    Now the Attention comes into the Picture. We now start using the decoder outputs as well. At each time step, we’ll first need to calculate the Alignment Score for each encoder output for the decoder output of the previous time step(input for this step). This alignment score is the most important part of the attention layer as it helps to decide which words should be given more importance depending on the previous hidden states of the decoder.
+                </p>
                 <p class="lead">
                     For Bahdanau the Alignment score is defined as:
                 </p>
                 <div class="d-flex justify-content-around">
-                    <img src="Attention5.png" height="70px" width="500px">
+                    <img src="Attention5.png" height="60px" width="420px">
                 </div>
+                <div class="d-flex justify-content-around">
+                    <img src="AttentionGif2.gif" height="520px" width="700px">
+                </div>
+                <br>
+                <h3>Applying Softmax to Alignment Scores</h3>
                 <p class="lead">
                     We then apply softmax on the obtained Alignment scores to get the Attention weights. This would give us the weighted probabilities for each of the inputs. Now multiplying this obtained attention weights with the encoder outputs would give higher weight to the inputs which require more “attention” and lesser to those which require less “attention”. This final vector after multiplication with the softmax Alignment Scores is called the Context vector.
                 </p>
+                <div class="d-flex justify-content-around">
+                    <img src="Attention4.png" height="160px" width="700px">
+                </div>
+                <div class="d-flex justify-content-around">
+                    <img src="AttentionGif3.gif" height="520px" width="700px">
+                </div>
+                <br>
+                <h3>Calculating Context Vector</h3>
                 <p class="lead">
                     The Context vector is then merged into the decoder output at the previous time step and fed through the Decoder RNN. for the final output a Linear Layer is used to obtain the softmax probability of each of the word. This above process is repeated for each step.
                 </p>
