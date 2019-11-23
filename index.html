@@ -28,7 +28,7 @@
     <body>
         <section id="header" style="padding-top: 10rem;">
             <h1 class="display-4" style="font-family: 'Roboto', sans-serif; font-weight: 900;">Understanding Global Attention Layer in Machine Translation</h1>
-            <p class="lead">In this article we visualise global attention by Bahdanau et.al. layers and its output.</p>
+            <p class="lead">In this article we visualise global attention layer by Bahdanau et.al.</p>
         </section>
 
         <hr>
@@ -68,8 +68,8 @@
             <div>
                 <h2 class="display-4">Introduction</h2>
                 <hr>
-                <p class="lead">Neural machine translation is one of the most commonly used and one of the best methods used for machine translation. The very recently proposed neural models are the encoder-decoder models. As the name suggests the encoder first encodes a sentence to a vector of some length and then the decoder gives out the corresponding translation for the same. But the problem with these seq2seq models is that there is a bottleneck when we try to convert these sentences to a fixed-length vector making it tedious for the model to keep up with longer sentences.</p>
-                <p class="lead">So we use the Attention Mechanism. Attention directly addresses this issue as it retains and utilizes all the hidden states of the input sequence during the decoding process. Attention in simple terms is another layer you add to your neural architecture which deals with the above problem by weighing the words that carry more meaning to translation. How it does so is by mapping each time step of the decoder output to each of the encoder states.<sup>[1][2]</sup></p>
+                <p class="lead">Neural machine translation is one of the most commonly used and one of the best methods used for machine translation. The very recently proposed neural models are the encoder-decoder models. As the name suggests the encoder first encodes a sentence to a vector of some length and then the decoder gives out the corresponding translation for the same. But the problem with these seq2seq models is that there is a bottleneck when we try to convert these sentences to a fixed-length vector making it tedious for the model to keep up with longer sentences.<sup>[1]</sup></p>
+                <p class="lead">So we use the Attention Mechanism. Attention directly addresses this issue as it retains and utilizes all the hidden states of the input sequence during the decoding process. Attention in simple terms is another layer you add to your neural architecture which deals with the above problem by weighing the words that carry more meaning to translation. How it does so is by mapping each time step of the decoder output to each of the encoder states.<sup>[2]</sup></p>
                 <div class="d-flex justify-content-around">
                     <img src="Attention.png" height="400px" width="550px">
                 </div>
@@ -83,13 +83,13 @@
                 <h2 class="display-4">RNN Encoder-Decoder</h2>
                 <hr>
                 <p class="lead">A large variety of problems like machine translation and text summarization where the output dimension is different from the input dimension, that has dependence on the sequence of inputs use an encoder-decoder approach.
-                        An encoder is a neural model that reads and encodes a source sentence into a fixed-length vector. A decoder then outputs a translation or summarization from the encoded vector.
+                        An encoder is a neural model that reads and encodes a source sentence into a fixed-length vector. A decoder then outputs a translation or summarization from the encoded vector.<sup>[1]</sup>
                 </p>
                 <div class="d-flex justify-content-around">
                     <img src="ED4.png" height="250px" width="700px">
                 </div>
                 <p class="lead">
-                        In the Encoder–Decoder framework, an encoder reads the input sentence, a sequence of vectors <i>x = (x<sub>1</sub>, . . . , x<sub>T<sub>x</sub></sub> )</i>, into a vector c, called the <b><i>context vector</i></b>.
+                        In the Encoder–Decoder framework, an encoder reads the input sentence, a sequence of vectors <i>x = (x<sub>1</sub>, . . . , x<sub>T<sub>x</sub></sub> )</i>, into a vector c, called the <b><i>context vector</i></b>.<sup>[1]</sup>
                 </p>
                 <div class="d-flex justify-content-around">
                     <img src="ED1.png" height="100px" width="230px">
@@ -100,7 +100,7 @@
                         <i>f</i> and <i>q</i> are some nonlinear functions.
                 </p>
                 <p class="lead">
-                    The decoder is trained to predict the next word <i>y<sub>t</sub></i> given the context vector <i>c</i> and all the previously predicted words <i>{y<sub>1</sub>, . . . , y<sub>t-1</sub> }</i>.
+                    The decoder is trained to predict the next word <i>y<sub>t</sub></i> given the context vector <i>c</i> and all the previously predicted words <i>{y<sub>1</sub>, . . . , y<sub>t-1</sub> }</i>.<sup>[1]</sup>
                     <br>So the decoder defines a probability over the translation y by decomposing the joint probability into the ordered conditionals:                        
                 </p>
                 <div class="d-flex justify-content-around">
@@ -152,7 +152,7 @@
                 <br>
                 <h3>Calculating Alignment Scores</h3>
                 <p class="lead">
-                    Now the Attention comes into the Picture. We now start using the decoder outputs as well. At each time step, we’ll first need to calculate the Alignment Score for each encoder output for the decoder output of the previous time step(input for this step). This alignment score is the most important part of the attention layer as it helps to decide which words should be given more importance depending on the previous hidden states of the decoder.
+                    Now the Attention comes into the Picture. We now start using the decoder outputs as well. At each time step, we’ll first need to calculate the Alignment Score for each encoder output for the decoder output of the previous time step(input for this step). This alignment score is the most important part of the attention layer as it helps to decide which words should be given more importance depending on the previous hidden states of the decoder.<sup>[2]</sup>
                 </p>
                 <p class="lead">
                     For Bahdanau the Alignment score is defined as:
@@ -374,7 +374,7 @@
 
             chart = document.querySelector("#chart");
             drawChart(example1,example1Ylabels,example1Xlabels,chart);
-            document.getElementById("ensp").innerHTML = "<b>Predicted</b>: " + example1Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example1Xlabels.join(' ');
+            document.getElementById("ensp").innerHTML = "<b>Translated</b>: " + example1Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example1Xlabels.join(' ');
 
 
 
@@ -399,7 +399,7 @@
 
             chart2 = document.querySelector("#chart2");
             drawChart(example2,example2Ylabels,example2Xlabels,chart2);
-            document.getElementById("en2sp2").innerHTML = "<b>Predicted</b>: " + example2Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example2Xlabels.join(' ');
+            document.getElementById("en2sp2").innerHTML = "<b>Translated</b>: " + example2Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example2Xlabels.join(' ');
 
             var example3 = [[1.49291791e-02, 9.22864676e-02, 1.54800639e-01, 6.28240824e-01,
         2.22253166e-02, 3.61392647e-02, 4.57631052e-02, 3.81362299e-03],
@@ -423,7 +423,7 @@
             
             chart3 = document.querySelector("#chart3");
             drawChart(example3,example3Ylabels,example3Xlabels,chart3);
-            document.getElementById("en3sp3").innerHTML = "<b>Predicted</b>: " + example3Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example3Xlabels.join(' ');
+            document.getElementById("en3sp3").innerHTML = "<b>Translated</b>: " + example3Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example3Xlabels.join(' ');
 
             var example4 = [[2.07950529e-02, 5.32812774e-01, 7.68576190e-02, 1.82498798e-01,
         1.77884385e-01, 5.06604789e-03],
@@ -447,7 +447,7 @@
             
             chart4 = document.querySelector("#chart4");
             drawChart(example4,example4Ylabels,example4Xlabels,chart4);
-            document.getElementById("en4sp4").innerHTML = "<b>Predicted</b>: " + example4Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example4Xlabels.join(' ');
+            document.getElementById("en4sp4").innerHTML = "<b>Translated</b>: " + example4Ylabels.join(' ') + "<br>" + "<b>Original</b>: " + example4Xlabels.join(' ');
 
         </script>
 
