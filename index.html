@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link href="style/index.css" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+        <title>chart</title>
+    </head>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" id="mynavbar">
+            <div class="container">
+                <a class="navbar-brand" href="/">CS613: NLP</a>
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="color: white;">
+                    
+                    <span>MENU <i class="fas fa-caret-down"></i></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Welcome">Welcome <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#About">About Me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Contact">Contact Me</a>
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
+        </nav>
+    </header>
+    <body>
+        <section id="header">
+            <h1 class="display-4" style="font-family: 'Roboto', sans-serif; font-weight: 900;">Understanding Global Attention Layer in Machine Translation</h1>
+            <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ipsa nihil consectetur eveniet? Totam laudantium, possimus quos delectus nemo, maxime tempora quae repudiandae hic iusto obcaecati necessitatibus quibusdam magni dolore.</p>
+        </section>
+
+        <hr>
+
+        <section id="authors">
+            <div class="d-flex justify-content-around text-center">
+                <div>
+                    <h6>Authors</h6>
+                    <p>Chandan Maji<br>Anshuman Yadav</p>
+                </div>
+                <div>
+                    <h6>Roll</h6>
+                    <p>17110037<br>17110020</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="contents">
+            <div>
+                <h4>Contents</h4>
+                <h6><a href="#intro">Intoduction</a></h6>
+                <h6><a href="#intro">Types of Attention</a></h6>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="intro">
+            <div>
+                <h2 class="display-4">Introduction</h2>
+                <hr>
+                <p class="lead">Neural machine translation is one of the most commonly used and one of the best methods used for machine translation. The very recently proposed neural models are the encoder-decoder models. As the name suggests the encoder first encodes a sentence to a vector of some length and then the decoder gives out the corresponding translation for the same. But the problem with these seq2seq models is that there is a bottleneck when we try to convert these sentences to a fixed-length vector making it tedious for the model to keep up with longer sentences.</p>
+                <p class="lead">So we use the Attention Mechanism. Attention directly addresses this issue as it retains and utilizes all the hidden states of the input sequence during the decoding process. Attention in simple terms is another layer you add to your neural architecture which deals with the above problem by weighing the words that carry more meaning to translation. How it does so is by mapping each time step of the decoder output to each of the encoder states.[1][2]</p>
+            </div>
+        </section>
+
+        <section id="encoder_decoder">
+            <div>
+                <h2 class="display-4">RNN Encoder-Decoder</h2>
+                <hr>
+                <p class="lead">A large variety of problems like machine translation and text summarization where the output dimension is different from the input dimension, that has dependence on the sequence of inputs use an encoder-decoder approach.
+                        An encoder is a neural model that reads and encodes a source sentence into a fixed-length vector. A decoder then outputs a translation or summarization from the encoded vector.
+                </p>
+                <p class="lead">
+                        In the Encoder–Decoder framework, an encoder reads the input sentence, a sequence of vectors <i>x = (x<sub>1</sub>, . . . , x<sub>T<sub>x</sub></sub> )</i>, into a vector c, called the <b><i>context vector</i></b>.
+                </p>
+                <div class="d-flex justify-content-around">
+                    <img src="ED1.png" height="100px" width="230px">
+                </div>
+                <p class="lead">
+                        <i>h<sub>t</sub> ∈ R<sup>n</sup></i> is a hidden state at time t<br>
+                        <i>c</i> is a vector generated from the sequence of the hidden states.<br>
+                        <i>f</i> and <i>q</i> are some nonlinear functions.
+                </p>
+                <p class="lead">
+                    The decoder is trained to predict the next word <i>y<sub>t</sub></i> given the context vector <i>c</i> and all the previously predicted words <i>{y<sub>1</sub>, . . . , y<sub>t-1</sub> }</i>.
+                    <br>So the decoder defines a probability over the translation y by decomposing the joint probability into the ordered conditionals:                        
+                </p>
+                <div class="d-flex justify-content-around">
+                    <img src="ED2.png" height="100px" width="400px">
+                </div>
+                <p class="lead">
+                    where <i>y = (y<sub>1</sub>, . . . , y<sub>T<sub>y</sub></sub> )</i>
+                </p>
+                <p class="lead">Therefore each conditional probability is:</p>
+                <div class="d-flex justify-content-around">
+                    <img src="ED3.png" height="40px" width="400px">
+                </div>
+                <p class="lead">
+                    where <i>g</i> is a nonlinear function that gives the probability of <i>y<sub>t</sub></i> , and <i>s<sub>t</sub></i> is the hidden state of the RNN.
+                </p>
+            </div>
+        </section>
+        
+
+        <section>
+            <div class="d-md-flex justify-content-around">
+                <div id="chart"></div>
+                <div id="chart2"></div>
+            </div>
+            <div class="d-md-flex justify-content-around">
+                <div id="chart3"></div>
+                <div id="chart4"></div>
+            </div>
+        </section>
+
+        <script>
+            
+            function generateRow(labels, arr){
+                var row = [];
+                for(var i=0; i<arr.length; i++){
+                    if(i>=labels.length){
+                        row.push({x:"", y:arr[i]});
+                    }else{
+                        row.push({x:labels[i], y:arr[i]});
+                    }
+                }
+                return row;
+            }
+
+            function drawChart(matrix, ylabels, xlabels, chart){
+                
+                var series = [];
+                for(var i=0; i<matrix.length; i++){
+                    if(i>=ylabels.length){
+                        series.push({
+                            name: "",
+                            data: generateRow(xlabels, matrix[i])
+                        });
+                    }else{
+                        series.push({
+                            name: ylabels[i],
+                            data: generateRow(xlabels, matrix[i])
+                        });
+                    }
+                }
+                series.reverse();
+
+                var options = {
+                    chart: {
+                        height: 420,
+                        width: 420,
+                        type: 'heatmap',
+                        toolbar:{
+                            tools:{
+                                download:false
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    colors: ["#F3B415", "#F27036", "#663F59", "#6A6E94", "#4E88B4", "#00A7C6", "#18D8D8", '#A9D794',
+                '#46AF78', '#A93F55', '#8C5E58', '#2176FF', '#33A1FD', '#7A918D', '#BAFF29'],
+                    series: series,
+                    xaxis:{
+                        labels:{
+                            rotate: -90,
+                            rotateAlways: true,
+                            maxHeight:500,
+                            
+                            style:{
+                                fontSize: '1em'
+                            }
+                        },
+                        position: 'bottom',
+                        tickPlacement: 'between'
+                    },
+                    yaxis:{
+                        labels:{
+                            style:{
+                                fontSize:'1em'
+                            }
+                        }
+                    }
+
+                }
+            
+                var chart = new ApexCharts(
+                    chart,
+                    options
+                );
+
+                chart.render();
+            }
+
+            
+
+            var example1 = [[1.78987384e-02, 1.08056061e-01, 1.62778020e-01, 3.70597184e-01,
+                                1.91552743e-01, 1.39005810e-01, 7.17670796e-03],
+                            [8.98555387e-03, 2.56486207e-01, 2.53880799e-01, 3.38393629e-01,
+                                7.63959736e-02, 6.33484051e-02, 1.93625782e-03],
+                            [6.68997131e-03, 9.25078318e-02, 3.43772531e-01, 4.40009326e-01,
+                                6.36832565e-02, 5.14815226e-02, 1.08706043e-03],
+                            [1.11671854e-02, 1.37758711e-02, 1.65048018e-01, 5.64759552e-01,
+                                1.94326892e-01, 5.06894998e-02, 9.24521155e-05],
+                            [3.81057262e-02, 4.27001417e-02, 3.97192724e-02, 2.13715941e-01,
+                                4.04726833e-01, 2.60775566e-01, 2.02724710e-04],
+                            [1.43401295e-01, 1.22860922e-02, 2.72335522e-02, 9.96667519e-02,
+                                1.44221380e-01, 5.66718698e-01, 5.67067415e-03],
+                            [2.26393804e-01, 2.11771261e-02, 7.41506591e-02, 9.96433869e-02,
+                                9.19158906e-02, 4.78852600e-01, 6.53257035e-03],
+                            [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+                                0.00000000e+00, 0.00000000e+00, 0.00000000e+00]];
+            
+            var example1Ylabels = ['it', 's', 'very', 'cold', 'here', '.', '<end>', ''];
+            var example1Xlabels = ['<start>', 'hace', 'mucho', 'frio', 'aqui', '.', '<end>'];
+
+            chart = document.querySelector("#chart");
+            drawChart(example1,example1Ylabels,example1Xlabels,chart);
+
+
+
+            var example2 = [[2.69316863e-02, 4.35432285e-01, 3.49538237e-01, 6.88935444e-02,
+        4.38219234e-02, 6.94982409e-02, 2.90624425e-03],
+       [1.10065015e-02, 2.01686025e-01, 6.51064157e-01, 5.52224815e-02,
+        4.99031805e-02, 2.98789684e-02, 5.49725024e-04],
+       [4.64920811e-02, 2.91497111e-02, 1.17235824e-01, 3.87466729e-01,
+        2.93101937e-01, 1.24079421e-01, 1.25952333e-03],
+       [4.00643200e-02, 3.29343160e-03, 3.69683933e-03, 4.57404926e-02,
+        5.37743926e-01, 3.69032294e-01, 2.39890462e-04],
+       [1.53850362e-01, 5.38249733e-03, 8.67784675e-03, 9.95582622e-03,
+        1.61332086e-01, 6.57735050e-01, 2.71742325e-03],
+       [4.91431326e-01, 3.06984615e-02, 2.82700267e-02, 4.18203659e-02,
+        3.35533917e-02, 3.44698846e-01, 2.06754301e-02],
+       [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+        0.00000000e+00, 0.00000000e+00, 0.00000000e+00]];
+            
+            var example2Ylabels = ['this', 'is', 'my', 'life', '.', '<end>', ''];
+            var example2Xlabels =['<start>', 'esta', 'es', 'mi', 'vida', '.', '<end>'];
+            
+
+            chart2 = document.querySelector("#chart2");
+            drawChart(example2,example2Ylabels,example2Xlabels,chart2);
+
+            var example3 = [[1.49291791e-02, 9.22864676e-02, 1.54800639e-01, 6.28240824e-01,
+        2.22253166e-02, 3.61392647e-02, 4.57631052e-02, 3.81362299e-03],
+       [1.54376812e-02, 7.82099664e-02, 2.87458241e-01, 4.90791023e-01,
+        2.77158115e-02, 5.60879484e-02, 4.36858907e-02, 3.66794731e-04],
+       [9.86882579e-03, 4.47435165e-03, 2.52600282e-01, 1.88843563e-01,
+        3.15165937e-01, 1.62282109e-01, 6.60351887e-02, 5.72241086e-04],
+       [6.10405877e-02, 3.31980619e-03, 1.69353709e-02, 2.37395912e-02,
+        1.81883574e-01, 5.50533295e-01, 1.62078217e-01, 3.62434512e-04],
+       [1.86779231e-01, 3.82824481e-04, 1.93492533e-03, 1.49916019e-03,
+        4.95420247e-02, 3.24817181e-01, 4.33019161e-01, 1.65049778e-03],
+       [3.56229365e-01, 1.12114032e-03, 3.75209772e-03, 3.27124773e-03,
+        2.21397285e-03, 4.67924103e-02, 5.85700870e-01, 7.24526006e-04],
+       [3.99454594e-01, 2.31842846e-02, 5.47377244e-02, 4.55629043e-02,
+        2.44856533e-02, 7.81141073e-02, 3.51960152e-01, 1.92439388e-02],
+       [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+        0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00]];
+            
+            var example3Ylabels = ['are', 'you', 'still', 'at', 'home', '?', '<end>', ''];
+            var example3Xlabels =['<start>', '¿', 'todavia', 'estan', 'en', 'casa', '?', '<end>'];
+            
+            chart3 = document.querySelector("#chart3");
+            drawChart(example3,example3Ylabels,example3Xlabels,chart3);
+
+            var example4 = [[2.07950529e-02, 5.32812774e-01, 7.68576190e-02, 1.82498798e-01,
+        1.77884385e-01, 5.06604789e-03],
+       [2.10835654e-02, 2.02772707e-01, 1.72797874e-01, 3.31443638e-01,
+        2.70488918e-01, 8.00311682e-04],
+       [2.10936088e-02, 4.83304681e-03, 3.11526544e-02, 6.73927486e-01,
+        2.66484648e-01, 2.16754945e-03],
+       [2.03963984e-02, 1.64036022e-03, 1.07795019e-02, 6.26639202e-02,
+        9.02112246e-01, 2.07016058e-03],
+       [4.29836847e-02, 5.71992574e-03, 3.30743641e-02, 2.30478093e-01,
+        6.46381259e-01, 3.54533419e-02],
+       [3.63002062e-01, 1.11644352e-02, 1.13062141e-02, 1.13899134e-01,
+        4.95954037e-01, 3.57095199e-03],
+       [2.10057765e-01, 1.53607014e-03, 5.16569754e-03, 3.08546778e-02,
+        7.33162761e-01, 1.78289842e-02],
+       [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+        0.00000000e+00, 0.00000000e+00]];
+            
+            var example4Ylabels = ['try', 'to', 'figure', 'it', 'out', '.', '<end>', ''];
+            var example4Xlabels = ['<start>', 'trata', 'de', 'averiguarlo', '.', '<end>'];
+            
+            chart4 = document.querySelector("#chart4");
+            drawChart(example4,example4Ylabels,example4Xlabels,chart4);
+
+        </script>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+    </body>
+</html>
